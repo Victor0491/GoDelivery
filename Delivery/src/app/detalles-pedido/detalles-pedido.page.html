@@ -1,0 +1,35 @@
+<ion-header >
+  <ion-icon routerLink="/tabs/retiro" class="back-arrow" name="arrow-back-outline"></ion-icon>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="contenedor">
+    <h1 style="color: white!important;margin-top: -2rem;font-size: 2rem;">Retiro #{{pedidoInfo.id}}</h1>
+    <p style="margin-top:-0.3rem;margin-bottom:2rem;">{{pedidoInfo.estado}}</p>
+
+    <p style="color:white!important;line-height: 1.5rem;">
+      <b>Cliente:</b> <br/> {{pedidoInfo.cliente}}
+    </p>
+
+    <p style="color:white!important;line-height: 1.5rem;">
+      <b>Nombre de la tienda:</b> <br/> {{pedidoInfo.tienda}}
+    </p>
+
+    <p style="color:white!important;line-height: 1.5rem;">
+      <b>Direccion de retiro:</b> <br/> {{pedidoInfo.direccionRetiro}}
+    </p>
+
+    <p style="color:white!important;line-height: 1.5rem;">
+      <b>Fecha de retiro:</b> <br/> {{pedidoInfo.fechaRetiro}}
+    </p>
+
+    <p style="color:white!important;line-height: 1.5rem;">
+      <b>Cantidad de bultos:</b> <br/> {{pedidoInfo.bultos}}
+    </p>
+
+  </div>
+
+  <div class="w-100" style="position:fixed;bottom:0;left:0;">
+    <ion-button class="w-100" style="margin:1rem;">Realizar retiro</ion-button>
+  </div>
+</ion-content>
