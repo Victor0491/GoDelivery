@@ -99,7 +99,7 @@ export class ObjetoService {
     ) 
     VALUES 
     (
-      2, 'Miraflores A2lto','1112','Viña del mar',
+      1, 'Miraflores A2lto','1112','Viña del mar',
       'Sebastian Cliente','+56 9 4444 8888','PC Factory',
       'Calle 1234',2,'No retirado'
     )`
