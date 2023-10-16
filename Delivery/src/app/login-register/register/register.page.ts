@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/models/interface';
 import { ObjetoService } from 'src/app/service/objeto.service';
+import { AuthFirebaseService } from 'src/app/service/auth-firebase.service';
 
 @Component({
   selector: 'app-register',
@@ -11,11 +12,16 @@ import { ObjetoService } from 'src/app/service/objeto.service';
 export class RegisterPage implements OnInit {
 
   newUser: User = {
-    id : '',
+    uid : '',
     username: '',
     password: '',
     email: '',
   };
+
+  newFile: any;
+   
+  uid = '';
+
   
   mensaje_error1 : string = 'Contraseñas incorrectas';
   mensaje_error2 : string = 'Contraseña debe tener almenos 6 caracteres';
@@ -25,24 +31,16 @@ export class RegisterPage implements OnInit {
   mostrarMensajeError3: boolean = false;
   confirmPassword: string = ''; // Nuevo campo para confirmar la contraseña
   
-  constructor(private navCtrl: NavController,private toastController: ToastController, private db : ObjetoService) { }
-
-  ngOnInit() {
+  constructor(private navCtrl: NavController,private toastController: ToastController, private db : ObjetoService, public auth : AuthFirebaseService) { 
     
   }
 
-  save(){
-    console.log('Esto se envia a firebase ' ,this.newUser)
-    const data = this.newUser;
-    data.id = this.db.createId();
-    const enlace = 'user';
-    this.db.set_User<User>(data, enlace, data.id);
-    console.log(data,enlace,'Hola');
-
+  async ngOnInit() {
+    const uid = await this.auth.getUid();
+    console.log(uid);
   }
 
-
-  register() {
+  async register() {
     // Validar que la contraseña tenga al menos 6 caracteres
     if (this.newUser.password.length >= 6) {
       // Contraseña cumple con la longitud mínima
@@ -52,15 +50,32 @@ export class RegisterPage implements OnInit {
         // Contraseña y confirmación coinciden, procede con el registro
         if (this.newUser.email.includes('@')) {
         // Guarda los datos en el LocalStorage
-        localStorage.setItem('User', JSON.stringify(this.newUser));
+        //localStorage.setItem('User', JSON.stringify(this.newUser));
       
+          const credenciales = {
+              email: this.newUser.email,
+              password: this.newUser.password,
+          };
+          const res = await this.auth.registrar(credenciales.email, credenciales.password).catch( err => {
+            console.log( 'error -> ',  err);
+        });
+          const uid = await this.auth.getUid();
+          console.log(uid);
+          if (uid) {
+            this.newUser.uid = uid;
+            this.guardarUser();
+          } else {
+            console.log('Error: No se pudo obtener el UID');
+            return; // Evita continuar si no se obtiene el UID
+          }
+     
+    
 
         // Redirige a la página de inicio de sesión u otra página según tu flujo de la aplicación
         this.mostrarMensajeRegistro()
         this.navCtrl.navigateForward('/login');
-        const storedUserString = localStorage.getItem('User');
-        console.log(storedUserString)
-
+        //const storedUserString = localStorage.getItem('User');
+        //console.log(storedUserString)
 
       } else {
         // Correo electrónico no válido, muestra un mensaje de error
@@ -76,6 +91,16 @@ export class RegisterPage implements OnInit {
       console.log('La contraseña debe tener al menos 6 caracteres.');
       
       }
+    }
+
+    guardarUser(){
+      const path = 'user'
+      const name = this.newUser.username;
+      this.db.createDoc(this.newUser, path, this.newUser.uid).then( res => {
+        console.log('guardado con exito');
+    }).catch( error => {
+    });
+      
     }
 
     async mostrarMensajeRegistro() {

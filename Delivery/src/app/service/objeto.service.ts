@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AngularFirestore,AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import {AngularFireAuthModule} from '@angular/fire/compat/auth';
+
 
 @Injectable({
   providedIn: 'root'
@@ -52,17 +54,23 @@ export class ObjetoService {
     }
   ]
 
-  constructor(public db: AngularFirestore) { }
+  constructor(public db: AngularFirestore, public auth : AngularFireAuthModule ) { }
 
 
-  set_User<tipo>(data: tipo, enlace : string, id : string) {
-    const ref = this.db.collection<tipo>(enlace);
-    return ref.doc(id).set(data);
-  }
+  createDoc(data: any, path: string, id: string) {
+    const collection = this.db.collection(path);
+    return collection.doc(id).set(data);
+}
 
   createId(){
     return this.db.createId();
   }
+
+
+
+
+
+
 
 
   obtenerRetirosEntrega() {
