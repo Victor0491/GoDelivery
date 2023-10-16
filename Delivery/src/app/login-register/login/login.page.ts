@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { NavController, ToastController } from '@ionic/angular';
+import { User } from 'src/app/models/interface';
 
 
 @Component({
@@ -11,20 +12,20 @@ import { NavController, ToastController } from '@ionic/angular';
 export class LoginPage {
 
 
-
   formularioLogin: FormGroup;
 
-  userData = {
+  newUser: User = {
     username: '',
     password: '',
     email: ''
   };
+  
 
   ngOnInit() {
-    const storedUserDataString = localStorage.getItem('userData');
-    console.log(storedUserDataString)
-    if (storedUserDataString) {
-      const storedUserData = JSON.parse(storedUserDataString);
+    const storedUserString = localStorage.getItem('User');
+    console.log(storedUserString)
+    if (storedUserString) {
+      const storedUserData = JSON.parse(storedUserString);
       console.log('Datos en localStorage:', storedUserData);
     } else {
       console.log('No hay datos en localStorage.');
@@ -41,7 +42,7 @@ export class LoginPage {
 
   login() {
     // Recupera los datos almacenados en el LocalStorage
-    const storedUserDataString = localStorage.getItem('userData');
+    const storedUserDataString = localStorage.getItem('User');
 
     if (storedUserDataString) {
       const storedUserData = JSON.parse(storedUserDataString);

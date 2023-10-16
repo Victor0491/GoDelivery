@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
+import { User } from 'src/app/models/interface';
+import { ObjetoService } from 'src/app/service/objeto.service';
 
 @Component({
   selector: 'app-register',
@@ -8,10 +10,10 @@ import { NavController, ToastController } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
 
-  userData = {
+  newUser: User = {
     username: '',
     password: '',
-    email: ''
+    email: '',
   };
   
   mensaje_error1 : string = 'Contraseñas incorrectas';
@@ -22,31 +24,42 @@ export class RegisterPage implements OnInit {
   mostrarMensajeError3: boolean = false;
   confirmPassword: string = ''; // Nuevo campo para confirmar la contraseña
   
-  constructor(private navCtrl: NavController,private toastController: ToastController) { }
+  constructor(private navCtrl: NavController,private toastController: ToastController, private db : ObjetoService) { }
 
   ngOnInit() {
     
   }
 
+  save(){
+    console.log('Esto se envia a firebase ' ,this.newUser)
+    const data = this.newUser;
+    const enlace = 'user';
+    this.db.set_User<User>(data, enlace);
+    console.log(data,enlace,'Hola');
+
+  }
 
 
   register() {
     // Validar que la contraseña tenga al menos 6 caracteres
-    if (this.userData.password.length >= 6) {
+    if (this.newUser.password.length >= 6) {
       // Contraseña cumple con la longitud mínima
   
       // Validar que la contraseña y la confirmación coincidan
-      if (this.userData.password === this.confirmPassword) {
+      if (this.newUser.password === this.confirmPassword) {
         // Contraseña y confirmación coinciden, procede con el registro
-        if (this.userData.email.includes('@')) {
+        if (this.newUser.email.includes('@')) {
         // Guarda los datos en el LocalStorage
-        localStorage.setItem('userData', JSON.stringify(this.userData));
-          
+        localStorage.setItem('User', JSON.stringify(this.newUser));
+      
+
         // Redirige a la página de inicio de sesión u otra página según tu flujo de la aplicación
         this.mostrarMensajeRegistro()
         this.navCtrl.navigateForward('/login');
-        const storedUserDataString = localStorage.getItem('userData');
-        console.log(storedUserDataString)
+        const storedUserString = localStorage.getItem('User');
+        console.log(storedUserString)
+
+
       } else {
         // Correo electrónico no válido, muestra un mensaje de error
         this.mostrarMensajeError3 = true;
@@ -72,4 +85,5 @@ export class RegisterPage implements OnInit {
       toast.present();
     }
   }
+
 

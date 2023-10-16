@@ -17,7 +17,7 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
 
     // Recupera el dato de 'username' del LocalStorage
-    const userDataString = localStorage.getItem('userData');
+    const userDataString = localStorage.getItem('User');
     
     if (userDataString !== null) {
       const userData = JSON.parse(userDataString);
@@ -44,7 +44,7 @@ export class PerfilPage implements OnInit {
           
           handler: (blah) => {
             console.log('Cerrar sesión');
-            localStorage.removeItem('userData');
+            localStorage.removeItem('User');
             this.navCtrl.navigateForward('/login');
           }
         }
