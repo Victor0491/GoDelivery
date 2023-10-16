@@ -66,6 +66,11 @@ export class ObjetoService {
     return this.db.createId();
   }
 
+  getDoc<tipo>(path: string, id: string) {
+    const collection = this.db.collection<tipo>(path);
+    return collection.doc(id).valueChanges();
+  }
+
 
 
 

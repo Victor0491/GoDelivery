@@ -9,6 +9,8 @@ export class AuthFirebaseService {
 
   constructor(public auth: AngularFireAuth) { 
 
+    this.getUid();
+
   }
 
   login(email: string, password: string) {
@@ -33,6 +35,9 @@ export class AuthFirebaseService {
     }
  }
 
+ stateAuth() {
+  return this.auth.authState;
+}
 
 }
 

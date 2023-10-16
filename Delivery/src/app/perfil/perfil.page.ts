@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { AuthFirebaseService } from 'src/app/service/auth-firebase.service';
+import { User } from 'src/app/models/interface';
+import { ObjetoService } from 'src/app/service/objeto.service';
 
 @Component({
   selector: 'app-perfil',
@@ -11,19 +14,39 @@ export class PerfilPage implements OnInit {
   username: string = '';
   usercorreo: string = '';
 
-  constructor(public alertControler: AlertController,private navCtrl: NavController) { }
+  newUser: User = {
+    uid : '',
+    username: '',
+    password: '',
+    email: '',
+  };
+
+  uid = '';
+
+  constructor(public alertControler: AlertController,private navCtrl: NavController,public auth : AuthFirebaseService,private db : ObjetoService) {
+
+    this.auth.stateAuth().subscribe( res => {
+      console.log(res);
+                if (res !== null) {
+                   this.uid = res.uid;
+                   this.getUserInfo(this.uid);
+                }
+  });
+
+   }
   
 
   ngOnInit() {
 
-    // Recupera el dato de 'username' del LocalStorage
-    const userDataString = localStorage.getItem('User');
-    
-    if (userDataString !== null) {
-      const userData = JSON.parse(userDataString);
-      this.username = userData.username;
-      this.usercorreo = userData.email;
-    }
+  }
+
+  getUserInfo(uid : string){
+       const path = 'user';
+       this.db.getDoc<User>(path, uid).subscribe( res => {
+              if (res !== undefined) {
+                this.newUser = res;
+              }
+       });
   }
 
 
@@ -45,6 +68,7 @@ export class PerfilPage implements OnInit {
           handler: (blah) => {
             console.log('Cerrar sesión');
             localStorage.removeItem('User');
+            this.salir();
             this.navCtrl.navigateForward('/login');
           }
         }
@@ -52,4 +76,8 @@ export class PerfilPage implements OnInit {
     });
     await alert.present();
   }
+
+  async salir() {
+    this.auth.logout();
+ }
 }
