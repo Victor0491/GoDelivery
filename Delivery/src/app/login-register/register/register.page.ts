@@ -11,6 +11,7 @@ import { ObjetoService } from 'src/app/service/objeto.service';
 export class RegisterPage implements OnInit {
 
   newUser: User = {
+    id : '',
     username: '',
     password: '',
     email: '',
@@ -33,8 +34,9 @@ export class RegisterPage implements OnInit {
   save(){
     console.log('Esto se envia a firebase ' ,this.newUser)
     const data = this.newUser;
+    data.id = this.db.createId();
     const enlace = 'user';
-    this.db.set_User<User>(data, enlace);
+    this.db.set_User<User>(data, enlace, data.id);
     console.log(data,enlace,'Hola');
 
   }

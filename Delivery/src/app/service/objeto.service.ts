@@ -55,10 +55,13 @@ export class ObjetoService {
   constructor(public db: AngularFirestore) { }
 
 
-  set_User<tipo>(data: tipo, enlace : string) {
+  set_User<tipo>(data: tipo, enlace : string, id : string) {
     const ref = this.db.collection<tipo>(enlace);
-    console.log(data);
-    return ref.add(data);
+    return ref.doc(id).set(data);
+  }
+
+  createId(){
+    return this.db.createId();
   }
 
 

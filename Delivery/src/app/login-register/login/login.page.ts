@@ -15,9 +15,10 @@ export class LoginPage {
   formularioLogin: FormGroup;
 
   newUser: User = {
-    username: '',
-    password: '',
-    email: ''
+    id : '',
+    username : '',
+    password : '',
+    email : ''
   };
   
 
