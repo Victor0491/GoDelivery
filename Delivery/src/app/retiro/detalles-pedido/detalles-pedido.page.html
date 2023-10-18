@@ -13,13 +13,15 @@
       </ion-card-header>
       <ion-card-content>
         Cliente: {{retiro.nombre_cliente}}<br>
-        ID: {{retiro.id}} <br>
+        ID: {{retiro.uid}} <br>
         Bultos: {{retiro.numero_bultos}}<br>
         Hora retiro: {{horaCarga}} <br>
         Estado: {{retiro.estado_pedido}}
       </ion-card-content>
       <ion-footer>
-        <ion-button fill="clear"  class="realizar-retiro-button" (click)="marcarComoRetirado()" (click)="mostrarMensaje()">Realizar Retiro</ion-button>
+        <ion-button fill="clear"  class="realizar-retiro-button" >Realizar Retiro</ion-button>
       </ion-footer>
     </ion-card>
   </ion-content>
+<!-- 
+  (click)="marcarComoRetirado()" (click)="mostrarMensaje()" -->

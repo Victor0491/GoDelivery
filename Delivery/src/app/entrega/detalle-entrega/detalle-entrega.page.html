@@ -22,7 +22,8 @@
       <p><strong>Cantidad de Bultos: {{entrega.numero_bultos}}</strong></p>
     </div>
       <ion-label class="label-inline">Estado: </ion-label>
-      <ion-select placeholder="{{entrega.estado_pedido}}" class="select-inline" [(ngModel)]="estadoSeleccionado" (ionChange)="cambiarEstado()">
+      <!-- (ionChange)="cambiarEstado()" -->
+      <ion-select placeholder="{{entrega.estado_pedido}}" class="select-inline" [(ngModel)]="estadoSeleccionado" > 
         <ion-select-option value="En ruta">En Ruta</ion-select-option>
         <ion-select-option value="Entregado">Entregado</ion-select-option>
       </ion-select>

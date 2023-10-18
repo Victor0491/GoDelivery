@@ -23,61 +23,65 @@ export class PerfilPage implements OnInit {
 
   uid = '';
 
+  userData = {
+    Key : '' 
+  };
+
   constructor(public alertControler: AlertController,private navCtrl: NavController,public auth : AuthFirebaseService,private db : ObjetoService) {
+   }
+  
+  ngOnInit() {
 
     this.auth.stateAuth().subscribe( res => {
       console.log(res);
-                if (res !== null) {
-                   this.uid = res.uid;
-                   this.getUserInfo(this.uid);
-                }
-  });
+      if (res !== null) {
+         this.uid = res.uid;
+         this.getUserInfo(this.uid);
+      } else {
+      }
+});
 
-   }
-  
-
-  ngOnInit() {
-
-  }
-
-  getUserInfo(uid : string){
-       const path = 'user';
-       this.db.getDoc<User>(path, uid).subscribe( res => {
-              if (res !== undefined) {
-                this.newUser = res;
-              }
-       });
-  }
-
-
-  async presentAlert(){
-    const alert = await this.alertControler.create({
-      header: 'Cerrar sesión',
-      message: '¿Esta seguro de querer cerrar la sesión?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: (blah) => {
-            console.log('Cancelar');
-          }
-        },
-        {
-          text: 'ok',
-          
-          handler: (blah) => {
-            console.log('Cerrar sesión');
-            localStorage.removeItem('User');
-            this.salir();
-            this.navCtrl.navigateForward('/login');
-          }
-        }
-      ]
-    });
-    await alert.present();
   }
 
   async salir() {
     this.auth.logout();
  }
+
+ getUserInfo(uid: string) {
+  console.log('getUserInfo');
+  const path = 'user';
+  this.db.getDoc<User>(path, uid).subscribe( res => {
+         if (res !== undefined) {
+           this.newUser = res;
+         }
+  });
+}
+
+
+ async presentAlert(){
+  const alert = await this.alertControler.create({
+    header: 'Cerrar sesión',
+    message: '¿Esta seguro de querer cerrar la sesión?',
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: (blah) => {
+          console.log('Cancelar');
+        }
+      },
+      {
+        text: 'ok',
+        
+        handler: (blah) => {
+          console.log('Cerrar sesión');
+          localStorage.removeItem('User');
+          this.salir();
+          this.navCtrl.navigateForward('/login');
+        }
+      }
+    ]
+  });
+  await alert.present();
+}
 }

@@ -10,5 +10,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class AppComponent {
   constructor(
     private auth: AngularFireAuth,
-  ) {}
+  ) {
+    
+  }
 }

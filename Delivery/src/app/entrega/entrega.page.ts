@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { ObjetoService } from '../service/objeto.service';
+import { Pedido } from '../models/interface';
+import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/compat/auth';
+import { User } from 'src/app/models/interface';
+import { AuthFirebaseService } from 'src/app/service/auth-firebase.service';
 
 
 @Component({
@@ -13,18 +17,36 @@ export class EntregaPage implements OnInit {
 
   entregas: any = [];
 
-  constructor(private navCtrl: NavController,private route: ActivatedRoute,private objetoService : ObjetoService) { }
+  newUser: User = {
+    uid : '',
+    username : '',
+    password : '',
+    email : ''
+  };
+
+  userData = {
+    Key : '' 
+  };
+
+  uid = '';
+
+  constructor(private navCtrl: NavController,private route: ActivatedRoute, public auth : AuthFirebaseService, private db : ObjetoService) { }
 
   ngOnInit() {
-    this.obtenerEntregasRetiradas(); // Llamar al método para obtener las entregas retiradas
-    this.objetoService
-      .obtenerRetirosRetiradosSubject()
-      .subscribe(() => this.obtenerEntregasRetiradas());
+
+    this.cargarEntregas();
+  
   }
 
-  obtenerEntregasRetiradas() {
-    this.entregas = this.objetoService.obtenerRetirosRetirados();
-    console.log(this.entregas);
-  }
-  
+  async cargarEntregas(){
+    const uid = await this.auth.getUid();
+    console.log(uid);
+    const e = ['Entregado','Retirado','En ruta']
+    this.db.getPedidos(uid,e).subscribe(data => {
+      console.log(data)
+      this.entregas = data;
+
+  });
+}
+
 }
