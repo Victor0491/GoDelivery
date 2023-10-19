@@ -6,13 +6,8 @@ import { IngresadoGuard } from './ingresado.guard';
 const routes: Routes = [
 
   {
-    path: 'inicio',
-    redirectTo: 'inicio',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: 'e404',
+    path: '',
+    redirectTo: 'tabs',
     pathMatch: 'full'
   },
   {
@@ -24,11 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule),
     /*canActivate: [IngresadoGuard]*/
   },
-  {
+  /*{
     path: 'e404',
     loadChildren: () => import('./e404/e404.module').then( m => m.E404PageModule)
-  },
-
+  },*/
 ];
 @NgModule({
   imports: [

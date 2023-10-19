@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil',
@@ -8,10 +8,11 @@ import { AlertController } from '@ionic/angular';
 })
 export class PerfilPage implements OnInit {
 
-  constructor(public alertControler: AlertController) { }
+  constructor(public alertControler: AlertController, public navCtrl: NavController) { }
 
   ngOnInit() {
   }
+
 
   async presentAlert(){
     const alert = await this.alertControler.create({
@@ -30,6 +31,8 @@ export class PerfilPage implements OnInit {
           
           handler: (blah) => {
             console.log('Cerrar sesión');
+            localStorage.removeItem('ingresado');
+            this.navCtrl.navigateRoot('login');
           }
         }
       ]

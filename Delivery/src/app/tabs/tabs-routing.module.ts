@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../perfil/perfil.module').then( m => m.PerfilPageModule)
       },
       {
+        path: 'e404',
+        loadChildren: () => import('../e404/e404.module').then( m => m.E404PageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/inicio',
         pathMatch: 'full'
@@ -34,7 +38,32 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/inicio',
     pathMatch: 'full'
-  }
+  },
+  {
+    path: 'inicio',
+    redirectTo: '/tabs/inicio',
+    pathMatch: 'full'
+  },
+  {
+    path: 'tab2',
+    redirectTo: '/tabs/tab2',
+    pathMatch: 'full'
+  },
+  {
+    path: 'tab3',
+    redirectTo: '/tabs/tab3',
+    pathMatch: 'full'
+  },
+  {
+    path: 'perfil',
+    redirectTo: '/tabs/perfil',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/tabs/e404',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
