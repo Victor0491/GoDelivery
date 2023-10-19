@@ -26,37 +26,12 @@ export class InicioPage implements OnInit {
 
   constructor(public auth : AuthFirebaseService,private db : ObjetoService) {
 
-    this.auth.stateAuth().subscribe( res => {
-      console.log(res);
-                if (res !== null) {
-                   this.uid = res.uid;
-                   this.getUserInfo(this.uid);
-                   console.log(this.uid)
-                }
-  });
 
    }
 
   ngOnInit(){
 
-    const uid = localStorage.getItem('uid');
-    if (uid !== null) {
-      // Puedes utilizar el UID recuperado desde localStorage
-      console.log('UID recuperado:', uid);
-    } else {
-      // Manejar el caso en el que no se encontró un UID en localStorage
-      console.log('No se encontró un UID en localStorage');
-    }
-    
   }
 
-  getUserInfo(uid : string){
-    const path = 'user';
-    this.db.getDoc<User>(path, uid).subscribe( res => {
-           if (res !== undefined) {
-             this.newUser = res;
-           }
-    });
-}
 
 }

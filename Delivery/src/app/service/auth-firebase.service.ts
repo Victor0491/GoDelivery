@@ -22,7 +22,7 @@ export class AuthFirebaseService {
 
   constructor(public auth: AngularFireAuth, private db : ObjetoService) { 
 
-    this.stateUser();
+   
 
   }
 

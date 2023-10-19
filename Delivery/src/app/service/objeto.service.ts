@@ -33,12 +33,6 @@ export class ObjetoService {
     return collection.valueChanges();
   }
 
-    // getCollectionQuery<tipo>(path: string, parametro: string, condicion: any, busqueda: string) {
-    // const collection = this.db.collection<tipo>(path, 
-    //   ref => ref.where( parametro, condicion, busqueda));
-    // return collection.valueChanges();
-    // }
-
     getPedidos(uid: string, estados: string[]){
       return this.db.collection(`/user/${uid}/pedido`, ref => ref.where('estado_pedido', 'in', estados)).valueChanges();
     }
