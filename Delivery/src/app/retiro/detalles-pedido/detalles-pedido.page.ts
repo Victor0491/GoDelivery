@@ -59,21 +59,18 @@ async cargarRetiros() {
     toast.present();
   }
 
-  actualizarRetiro() {
-    const nuevoEstado = 'Retirado'; 
+  async cambiarEstadoDelPedido() {
     const id = this.route.snapshot.paramMap.get('id');
     console.log(id);
-
     if (id) {
-    this.db.actualizarRetiro(id, { estado_pedido: nuevoEstado })
-    .then(() => {
-      console.log('Retiro actualizado correctamente');
-    })
-    .catch(error => {
-      console.error('Error al actualizar el retiro:', error);
-    });
-    }
+    const uid = await this.auth.getUid(); // Asegúrate de tener la función para obtener el UID
+    const pedidoId = id // Reemplaza con el ID del pedido que deseas actualizar
+    const nuevoEstado = 'Retirado'; // El nuevo estado del pedido
+    
+    this.db.actualizarEstadoPedido(uid, pedidoId, nuevoEstado);
   }
+}
+
 }
 
  

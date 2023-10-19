@@ -47,7 +47,6 @@ export class ObjetoService {
       return this.db.collection(`/user/${uid}/pedido`, ref => ref.where('uid', '==', id_pedido)).valueChanges();
     }
 
-    
     getSubCollection(path:string, subCollectionName:string){
       return this.db.doc(path).collection(subCollectionName).valueChanges({ idField:'uid'})
     }
@@ -57,10 +56,19 @@ export class ObjetoService {
       return collection.valueChanges();
     }
 
-    actualizarRetiro(retiroId: string, retiroData: any) {
-      return this.db.collection('pedido').doc(retiroId).update(retiroData);
+    actualizarEstadoPedido(uid: string, pedidoId: string, nuevoEstado: string) {
+      const pedidoRef = this.db.collection(`/user/${uid}/pedido`).doc(pedidoId);
+  
+      return pedidoRef.update({ estado_pedido: nuevoEstado })
+        .then(() => {
+          console.log('Estado del pedido actualizado con éxito');
+        })
+        .catch(error => {
+          console.error('Error al actualizar el estado del pedido', error);
+        });
     }
-
-
   }
+
+
+
 
