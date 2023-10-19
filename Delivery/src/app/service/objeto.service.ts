@@ -42,9 +42,25 @@ export class ObjetoService {
     getPedidos(uid: string, estados: string[]){
       return this.db.collection(`/user/${uid}/pedido`, ref => ref.where('estado_pedido', 'in', estados)).valueChanges();
     }
+
+    getPedidosDetalles(uid: string, id_pedido: string){
+      return this.db.collection(`/user/${uid}/pedido`, ref => ref.where('uid', '==', id_pedido)).valueChanges();
+    }
+
     
     getSubCollection(path:string, subCollectionName:string){
       return this.db.doc(path).collection(subCollectionName).valueChanges({ idField:'uid'})
     }
 
-}
+    getCollection<tipo>(path: string) {
+      const collection = this.db.collection<tipo>(path);
+      return collection.valueChanges();
+    }
+
+    actualizarRetiro(retiroId: string, retiroData: any) {
+      return this.db.collection('pedido').doc(retiroId).update(retiroData);
+    }
+
+
+  }
+

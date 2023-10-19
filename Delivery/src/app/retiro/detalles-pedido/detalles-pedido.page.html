@@ -6,22 +6,20 @@
   </ion-header>
   
   <ion-content>
-    <ion-card *ngIf="retiro">
+    <ion-card *ngFor="let retiro of retiro">
       <ion-card-header>
         <ion-card-title></ion-card-title>
         <ion-card-subtitle>Dirección retiro:  </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        Cliente: {{retiro.nombre_cliente}}<br>
+        Cliente: {{retiro.nombre_tienda}}<br>
         ID: {{retiro.uid}} <br>
         Bultos: {{retiro.numero_bultos}}<br>
         Hora retiro: {{horaCarga}} <br>
         Estado: {{retiro.estado_pedido}}
       </ion-card-content>
       <ion-footer>
-        <ion-button fill="clear"  class="realizar-retiro-button" >Realizar Retiro</ion-button>
+        <ion-button fill="clear"  class="realizar-retiro-button" (click)="mostrarMensaje()" (click)="actualizarRetiro()">Realizar Retiro</ion-button>
       </ion-footer>
     </ion-card>
   </ion-content>
-<!-- 
-  (click)="marcarComoRetirado()" (click)="mostrarMensaje()" -->

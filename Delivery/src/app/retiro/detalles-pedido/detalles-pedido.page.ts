@@ -13,10 +13,10 @@ import { Observable } from 'rxjs';
 })
 export class DetallesPedidoPage implements OnInit {
   
-  retiro: any ;
+  retiro : any;
   horaCarga: string = '0';
   uid: any;
-
+  pedidoid :any;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,31 +29,51 @@ export class DetallesPedidoPage implements OnInit {
 
   ngOnInit() {
 
-      
+  this.cargarRetiros();
+   const now = new Date();
+    this.horaCarga = now.toLocaleTimeString(); // Puedes ajustar el formato de la hora según tus preferencias
 }
 
+async cargarRetiros() {
+  const id = this.route.snapshot.paramMap.get('id');
+  console.log(id);
+
+  if (id) {
+    const uid = await this.auth.getUid();
+    const t = id;
+
+    this.db.getPedidosDetalles(uid, t).subscribe(data => {
+      console.log(data);
+      this.retiro = data;
+      console.log(this.retiro)
+    });
+  }
 }
 
-    // console.log(this.retiro.estado_pedido)
+ async mostrarMensaje() {
+    const toast = await this.toastController.create({
+      message: 'Pedido cargado correctamente',
+      duration: 1000, // Duración en milisegundos
+      position: 'bottom' // Posición en la que aparecerá el mensaje
+    });
+    toast.present();
+  }
 
-    // const now = new Date();
-    // this.horaCarga = now.toLocaleTimeString(); // Puedes ajustar el formato de la hora según tus preferencias
-  
-  // marcarComoRetirado() {
-  //   if (this.retiro) {
-  //     // Cambiar el estado_pedido del retiro a "Retirado" solo visualmente
-  //     this.retiro.estado_pedido = 'Retirado';
+  actualizarRetiro() {
+    const nuevoEstado = 'Retirado'; 
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log(id);
 
-  //     this.objetoService.actualizarRetiro(this.retiro);
-  //     console.log(this.retiro.estado_pedido)
-  //   }
-  // }
+    if (id) {
+    this.db.actualizarRetiro(id, { estado_pedido: nuevoEstado })
+    .then(() => {
+      console.log('Retiro actualizado correctamente');
+    })
+    .catch(error => {
+      console.error('Error al actualizar el retiro:', error);
+    });
+    }
+  }
+}
 
-  // async mostrarMensaje() {
-  //   const toast = await this.toastController.create({
-  //     message: 'Pedido cargado correctamente',
-  //     duration: 1000, // Duración en milisegundos
-  //     position: 'bottom' // Posición en la que aparecerá el mensaje
-  //   });
-  //   toast.present();
-  // }
+ 

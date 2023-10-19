@@ -6,18 +6,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="entrega">
+  <ion-card *ngFor="let entrega of entregas">
     <ion-card-content>
       <div>
-      <p><strong>Nombre del Cliente:{{entrega.nombre_cliente}}</strong> </p>
+      <p><strong>Nombre del Cliente:{{entrega.cliente.nombre_cliente}}</strong> </p>
     </div>
     <div>
-      <p><strong>Teléfono: {{entrega.telefono}}</strong> </p>
+      <p><strong>Teléfono: {{entrega.cliente.telefono_cliente}}</strong> </p>
     </div>
     <div>
-      <p><strong>ID de Entrega: {{entrega.id}}</strong> </p>
+      <p><strong>ID de Entrega: {{entrega.uid}}</strong> </p>
     </div>
-      <p><strong>Dirección:{{entrega.direccion}}, {{entrega.comuna}} </strong> </p>
+      <p><strong>Dirección:{{entrega.cliente.direccion_cliente}}, {{entrega.cliente.comuna_cliente}} </strong> </p>
       <div>
       <p><strong>Cantidad de Bultos: {{entrega.numero_bultos}}</strong></p>
     </div>
@@ -37,6 +37,6 @@
   </div>
 
   <div class="button-confirmar">
-  <ion-button [routerLink]="['/tabs/confirmacion-entrega',entrega.id]" [disabled]="entrega.estado_pedido !== 'Entregado'">Confirmar Entrega</ion-button>
+  <!-- <ion-button [routerLink]="['/tabs/confirmacion-entrega', entrega.uid]" [disabled]="entrega.estado_pedido !== 'Entregado'">Confirmar Entrega</ion-button> -->
 </div>
 </ion-content>
