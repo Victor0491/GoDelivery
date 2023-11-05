@@ -10,7 +10,7 @@
     [class.ruta]="entrega.estado_pedido === 'En ruta'">
       <ion-card class="card-content" [routerLink]="['/tabs/detalle-entrega',entrega.uid]">
         <ion-card-content>
-          <ion-card-title>ID :{{entrega.uid}} </ion-card-title>
+          <ion-card-title style="font-size: 15px;">ID :{{entrega.uid}} </ion-card-title>
           <ion-card-subtitle> Dirección : {{entrega.cliente.direccion_cliente}}, {{entrega.cliente.comuna_cliente}}</ion-card-subtitle>
           <p>Nombre Cliente : {{entrega.cliente.nombre_cliente}}</p>
           <p>Estado : {{entrega.estado_pedido}}</p>

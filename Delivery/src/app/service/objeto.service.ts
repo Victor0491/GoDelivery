@@ -13,7 +13,6 @@ export class ObjetoService {
 
   constructor(public db: AngularFirestore, public auth : AngularFireAuthModule,public fireatuh : AngularFireAuth) { }
 
-
   createDoc(data: any, path: string, id: string) {
     const collection = this.db.collection(path);
     return collection.doc(id).set(data);
@@ -28,10 +27,10 @@ export class ObjetoService {
     return collection.doc(id).valueChanges();
   }
 
-  GetCollection(path : string){
-    const collection = this.db.collection(path);
-    return collection.valueChanges();
-  }
+  // GetCollection(path : string){
+  //   const collection = this.db.collection(path);
+  //   return collection.valueChanges();
+  // }
 
     getPedidos(uid: string, estados: string[]){
       return this.db.collection(`/user/${uid}/pedido`, ref => ref.where('estado_pedido', 'in', estados)).valueChanges();
@@ -41,18 +40,17 @@ export class ObjetoService {
       return this.db.collection(`/user/${uid}/pedido`, ref => ref.where('uid', '==', id_pedido)).valueChanges();
     }
 
-    getSubCollection(path:string, subCollectionName:string){
-      return this.db.doc(path).collection(subCollectionName).valueChanges({ idField:'uid'})
-    }
+    // getSubCollection(path:string, subCollectionName:string){
+    //   return this.db.doc(path).collection(subCollectionName).valueChanges({ idField:'uid'})
+    // }
 
-    getCollection<tipo>(path: string) {
-      const collection = this.db.collection<tipo>(path);
-      return collection.valueChanges();
-    }
+    // getCollection<tipo>(path: string) {
+    //   const collection = this.db.collection<tipo>(path);
+    //   return collection.valueChanges();
+    // }
 
     actualizarEstadoPedido(uid: string, pedidoId: string, nuevoEstado: string) {
       const pedidoRef = this.db.collection(`/user/${uid}/pedido`).doc(pedidoId);
-  
       return pedidoRef.update({ estado_pedido: nuevoEstado })
         .then(() => {
           console.log('Estado del pedido actualizado con éxito');
