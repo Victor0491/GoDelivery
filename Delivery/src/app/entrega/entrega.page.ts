@@ -40,11 +40,10 @@ export class EntregaPage implements OnInit {
   }
 
 
-
   async cargarEntregas(){
     const uid = await this.auth.getUid();
     console.log(uid);
-    const e = ['Entregado','Retirado','En ruta']
+    const e = ['Entregado','Retirado','En ruta','Entrega parcial']
     this.db.getPedidos(uid,e).subscribe(data => {
       console.log(data)
       this.entregas = data;

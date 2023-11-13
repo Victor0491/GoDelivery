@@ -23,7 +23,7 @@ export class DetallesPedidoPage implements OnInit {
     private navCtrl: NavController,
     private toastController: ToastController,
     private db : ObjetoService,
-    public auth : AuthFirebaseService,
+    private auth : AuthFirebaseService,
   ) {
   }
 

@@ -25,7 +25,7 @@
       <!-- (ionChange)="cambiarEstado()" -->
       <ion-select placeholder="" class="select-inline" [(ngModel)]="estadoSeleccionado" (ionChange)="cambiarEstadoDelPedido()"> 
         <ion-select-option value="En ruta">En Ruta</ion-select-option>
-        <ion-select-option value="Entregado">Entregado</ion-select-option>
+        <ion-select-option value="Entrega parcial">Entregada Parcial</ion-select-option>
       </ion-select>
     </ion-card-content>
   </ion-card>
@@ -37,6 +37,6 @@
   </div>
 
   <div class="button-confirmar" *ngFor="let entrega of entregas">
-    <ion-button [routerLink]="['/tabs/confirmacion-entrega',entrega.uid]" [disabled]="entrega.estado_pedido !== 'Entregado'">Confirmar Entrega</ion-button>
+    <ion-button [routerLink]="['/tabs/confirmacion-entrega',entrega.uid]" [disabled]="entrega.estado_pedido !== 'Entrega parcial'">Confirmar Entrega</ion-button>
 </div>
 </ion-content>

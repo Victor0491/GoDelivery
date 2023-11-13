@@ -29,14 +29,14 @@ ngOnInit() {
 async cambiarEstadoDelPedido() {
   const id = this.route.snapshot.paramMap.get('id');
   console.log(id);
-  if (id) {
-  const uid = await this.auth.getUid(); // Asegúrate de tener la función para obtener el UID
-  const pedidoId = id // Reemplaza con el ID del pedido que deseas actualizar
-  const nuevoEstado = this.estadoSeleccionado; // El nuevo estado del pedido
-  console.log(nuevoEstado);
-  
-  this.db.actualizarEstadoPedido(uid, pedidoId, nuevoEstado);
-}
+    if (id) {
+    const uid = await this.auth.getUid(); // Asegúrate de tener la función para obtener el UID
+    const pedidoId = id // Reemplaza con el ID del pedido que deseas actualizar
+    const nuevoEstado = this.estadoSeleccionado; // El nuevo estado del pedido
+    console.log(nuevoEstado);
+    
+    this.db.actualizarEstadoPedido(uid, pedidoId, nuevoEstado);
+  }
 }
 
   async cargarEntregas() {

@@ -7,7 +7,7 @@
   <ion-content>
 
     <div class="cuadro" *ngFor="let entrega of entregas" [class.retirado]="entrega.estado_pedido === 'Retirado'" [class.entregado]="entrega.estado_pedido === 'Entregado'"
-    [class.ruta]="entrega.estado_pedido === 'En ruta'">
+    [class.ruta]="entrega.estado_pedido === 'En ruta'" [class.entrega_parcial]="entrega.estado_pedido === 'Entrega parcial'">
       <ion-card class="card-content" [routerLink]="['/tabs/detalle-entrega',entrega.uid]">
         <ion-card-content>
           <ion-card-title style="font-size: 15px;">ID :{{entrega.uid}} </ion-card-title>

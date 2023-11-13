@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AngularFirestore,AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { AngularFirestore,AngularFirestoreCollection,DocumentReference } from '@angular/fire/compat/firestore';
 import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
+import { Confirmacion_entrega } from '../models/interface';
 
 
 @Injectable({
@@ -27,11 +28,6 @@ export class ObjetoService {
     return collection.doc(id).valueChanges();
   }
 
-  // GetCollection(path : string){
-  //   const collection = this.db.collection(path);
-  //   return collection.valueChanges();
-  // }
-
     getPedidos(uid: string, estados: string[]){
       return this.db.collection(`/user/${uid}/pedido`, ref => ref.where('estado_pedido', 'in', estados)).valueChanges();
     }
@@ -40,14 +36,6 @@ export class ObjetoService {
       return this.db.collection(`/user/${uid}/pedido`, ref => ref.where('uid', '==', id_pedido)).valueChanges();
     }
 
-    // getSubCollection(path:string, subCollectionName:string){
-    //   return this.db.doc(path).collection(subCollectionName).valueChanges({ idField:'uid'})
-    // }
-
-    // getCollection<tipo>(path: string) {
-    //   const collection = this.db.collection<tipo>(path);
-    //   return collection.valueChanges();
-    // }
 
     actualizarEstadoPedido(uid: string, pedidoId: string, nuevoEstado: string) {
       const pedidoRef = this.db.collection(`/user/${uid}/pedido`).doc(pedidoId);
@@ -59,7 +47,14 @@ export class ObjetoService {
           console.error('Error al actualizar el estado del pedido', error);
         });
     }
+
+    crearEntregaConfirmacion(uid: string, pedidoId: string, cliente: Confirmacion_entrega): Promise<DocumentReference<Confirmacion_entrega>> {
+      const rutaColeccion = `/user/${uid}/pedido/${pedidoId}/entrega_confirmacion`;
+      return this.db.collection(rutaColeccion).add(cliente) as Promise<DocumentReference<Confirmacion_entrega>>;
+      
+    }
   }
+  
 
 
 

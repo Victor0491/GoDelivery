@@ -14,3 +14,9 @@ export interface Pedido {
     direccion_tienda : string;
    
  }
+
+ export interface Confirmacion_entrega {
+    uid : string;
+    rut : string;
+    name : string;
+ }
