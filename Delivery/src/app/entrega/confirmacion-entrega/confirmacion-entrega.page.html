@@ -10,17 +10,21 @@
   <ion-item>
     <ion-label position="floating">RUT</ion-label>
     <ion-input type="text" [(ngModel)]="rut" (ionChange)="verificarCamposCompletados()"></ion-input>
-    <!-- (input)="verificarCamposCompletados()" -->
+
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Nombre</ion-label>
     <ion-input type="text" [(ngModel)]="nombre" (ionChange)="verificarCamposCompletados()" ></ion-input>
-    <!-- (input)="verificarCamposCompletados()" -->
+  
   </ion-item>
 
-  <ion-button expand="full" >Subir fotografia</ion-button>
+  <ion-button expand="full" (click)="takeImagen()" >Subir fotografia</ion-button>
   <ion-button expand="full" [routerLink]="['/tabs/entrega']" (click)="cambiarEstadoDelPedido()" (click)="crearEntregaConfirmacion()" [disabled]="!confirmarHabilitado">Confirmar</ion-button>
-  <!-- (click)="mostrarAlert()" -->
+
+
+  <ion-img *ngIf="newcliente.image"
+  src="{{newcliente.image}}"></ion-img>
+
 </ion-content>
 

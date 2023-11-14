@@ -39,7 +39,6 @@ export class EntregaPage implements OnInit {
   
   }
 
-
   async cargarEntregas(){
     const uid = await this.auth.getUid();
     console.log(uid);
@@ -47,7 +46,6 @@ export class EntregaPage implements OnInit {
     this.db.getPedidos(uid,e).subscribe(data => {
       console.log(data)
       this.entregas = data;
-
   });
 }
 

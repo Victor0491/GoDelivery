@@ -16,7 +16,7 @@ export interface Pedido {
  }
 
  export interface Confirmacion_entrega {
-    uid : string;
     rut : string;
     name : string;
+    image : string;
  }

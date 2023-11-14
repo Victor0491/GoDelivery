@@ -18,9 +18,9 @@ export class ConfirmacionEntregaPage implements OnInit {
   entrega: any;
 
   newcliente: Confirmacion_entrega = {
-    uid : '',
     rut : '',
     name : '',
+    image : '',
   };  
 
   constructor(public alertController: AlertController,
@@ -82,14 +82,19 @@ export class ConfirmacionEntregaPage implements OnInit {
   
       this.newcliente.name = this.nombre;
       this.newcliente.rut = this.rut;
-      this.newcliente.uid = '2';
       try {
         const docRef = await this.db.crearEntregaConfirmacion(uidUsuario, idPedido, this.newcliente);
         console.log('Documento agregado con ID:', docRef.id);
-        this.newcliente.uid = docRef.id;
       } catch (error) {
         console.error('Error al agregar documento:', error);
       }
+    }
+  }
+
+  async takeImagen(){
+    const dataUrl = (await this.db.takePicture('Imnagen de entrega')).dataUrl;
+    if (dataUrl){
+    this.newcliente.image = dataUrl;
     }
   }
 }

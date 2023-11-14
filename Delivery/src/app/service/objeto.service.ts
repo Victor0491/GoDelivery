@@ -4,6 +4,7 @@ import { AngularFirestore,AngularFirestoreCollection,DocumentReference } from '@
 import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
 import { Confirmacion_entrega } from '../models/interface';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 
 @Injectable({
@@ -53,6 +54,19 @@ export class ObjetoService {
       return this.db.collection(rutaColeccion).add(cliente) as Promise<DocumentReference<Confirmacion_entrega>>;
       
     }
+
+    async takePicture(promptLabelHeader : string) {
+      return await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.DataUrl,
+        source : CameraSource.Prompt,
+        promptLabelHeader,
+        promptLabelPhoto: 'Selecciona una imagen',
+        promptLabelPicture: 'Toma una foto'
+      });
+    }
+
   }
   
 
