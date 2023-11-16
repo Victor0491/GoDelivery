@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-      <app-header></app-header>
+      <app-header slot="start"></app-header>
       <ion-title>Detalles del Pedido</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -9,7 +9,7 @@
     <ion-card *ngFor="let retiro of retiro">
       <ion-card-header>
         <ion-card-title></ion-card-title>
-        <ion-card-subtitle>Dirección retiro:  </ion-card-subtitle>
+        <ion-card-subtitle>Dirección retiro: {{retiro.direccion_tienda}}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         Cliente: {{retiro.nombre_tienda}}<br>

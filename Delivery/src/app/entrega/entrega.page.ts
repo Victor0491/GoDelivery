@@ -34,19 +34,17 @@ export class EntregaPage implements OnInit {
   constructor(private navCtrl: NavController,private route: ActivatedRoute, public auth : AuthFirebaseService, private db : ObjetoService) { }
 
   ngOnInit() {
-
     this.cargarEntregas();
-  
   }
 
-  async cargarEntregas(){
-    const uid = await this.auth.getUid();
-    console.log(uid);
-    const e = ['Entregado','Retirado','En ruta','Entrega parcial']
-    this.db.getPedidos(uid,e).subscribe(data => {
-      console.log(data)
-      this.entregas = data;
-  });
-}
+    async cargarEntregas(){
+      const uid = await this.auth.getUid();
+      console.log(uid);
+      const e = ['Entregado','Retirado','En ruta','Entrega parcial']
+      this.db.getPedidos(uid,e).subscribe(data => {
+        console.log(data)
+        this.entregas = data;
+      });
+    }
 
 }

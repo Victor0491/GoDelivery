@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <app-header></app-header>
+    <app-header slot="start"></app-header>
     <ion-title>Detalle de Entrega</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -21,9 +21,9 @@
       <div>
       <p><strong>Cantidad de Bultos: {{entrega.numero_bultos}}</strong></p>
     </div>
-      <ion-label class="label-inline">Estado: {{entrega.estado_pedido}} </ion-label>
+      <ion-label class="label-inline">Estado: </ion-label>
       <!-- (ionChange)="cambiarEstado()" -->
-      <ion-select placeholder="" class="select-inline" [(ngModel)]="estadoSeleccionado" (ionChange)="cambiarEstadoDelPedido()"> 
+      <ion-select placeholder="{{entrega.estado_pedido}} " class="select-inline" [(ngModel)]="estadoSeleccionado" (ionChange)="cambiarEstadoDelPedido()"> 
         <ion-select-option value="En ruta">En Ruta</ion-select-option>
         <ion-select-option value="Entrega parcial">Entregada Parcial</ion-select-option>
       </ion-select>

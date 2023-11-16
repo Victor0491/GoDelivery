@@ -17,11 +17,22 @@
 .label-inline {
   display: inline-block;
   margin-right: 10px; /* Ajusta el margen derecho según tu preferencia */
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .select-inline {
   display: inline-block;
   width: calc(100% - 100px); /* Ajusta el ancho según tu preferencia */
-  color: white;
+  color: #ff6624;
 }
+
+ ion-select::part(text) {
+  color: #ff6624;
+  }
+
+  ion-select::part(icon) {
+    color: #ff6624;
+    opacity: 1;
+  }
+
+

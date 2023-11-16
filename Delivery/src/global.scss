@@ -30,7 +30,7 @@ p {
   color: white;
 }
 .alert-radio-label{
-  color: rgb(0, 0, 0) !important;
+  color: rgb(255, 255, 255) !important;
 }
 /* Cambia el color de fondo de todas las pantallas en la aplicación */
 ion-content {
@@ -92,4 +92,13 @@ ion-toolbar{
 
 .labelyinput{
   color: white !important;
+}
+
+ion-toolbar{
+  --color: white;
+}
+
+select-placeholder{
+  --color: #ff6624;
+  --placeholder-color: #ff6624 !important;
 }
