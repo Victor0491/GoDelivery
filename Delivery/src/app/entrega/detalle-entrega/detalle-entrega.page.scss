@@ -13,16 +13,19 @@
   justify-content: center;
   margin-top: 60px;
 }
+.texto{
+  font-size: 18px !important;
+}
 
 .label-inline {
-  display: inline-block;
+  display: inline-flex;
   margin-right: 10px; /* Ajusta el margen derecho según tu preferencia */
   color: rgb(255, 255, 255);
 }
 
 .select-inline {
-  display: inline-block;
-  width: calc(100% - 100px); /* Ajusta el ancho según tu preferencia */
+  display: inline-flex;
+  width: 10px;
   color: #ff6624;
 }
 
@@ -30,9 +33,13 @@
   color: #ff6624;
   }
 
+  ion-select::part(placeholder) {
+    display: block;
+    }
+  
+
   ion-select::part(icon) {
     color: #ff6624;
     opacity: 1;
   }
-
 

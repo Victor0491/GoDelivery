@@ -5,38 +5,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card *ngFor="let entrega of entregas">
-    <ion-card-content>
-      <div>
-      <p><strong>Nombre del Cliente:{{entrega.cliente.nombre_cliente}}</strong> </p>
-    </div>
-    <div>
-      <p><strong>Teléfono: {{entrega.cliente.telefono_cliente}}</strong> </p>
-    </div>
-    <div>
-      <p><strong>ID de Entrega: {{entrega.uid}}</strong> </p>
-    </div>
-      <p><strong>Dirección:{{entrega.cliente.direccion_cliente}}, {{entrega.cliente.comuna_cliente}} </strong> </p>
-      <div>
-      <p><strong>Cantidad de Bultos: {{entrega.numero_bultos}}</strong></p>
-    </div>
-      <ion-label class="label-inline">Estado: </ion-label>
-      <!-- (ionChange)="cambiarEstado()" -->
-      <ion-select placeholder="{{entrega.estado_pedido}} " class="select-inline" [(ngModel)]="estadoSeleccionado" (ionChange)="cambiarEstadoDelPedido()"> 
+<ion-content *ngFor="let entrega of entregas">
+  <ion-card >
+    <ion-card-content class="texto">
+
+      <p class="texto"><strong>Nombre del Cliente:{{entrega.cliente.nombre_cliente}}</strong> </p>
+
+      <p class="texto"><strong>Teléfono: {{entrega.cliente.telefono_cliente}}</strong> </p>
+
+      <p class="texto"><strong>ID de Entrega: {{entrega.uid}}</strong> </p>
+
+      <p class="texto"><strong>Cantidad de Bultos: {{entrega.numero_bultos}}</strong></p>
+
+      <ion-label class="label-inline"><strong>Estado: </strong></ion-label>
+      <strong><ion-select placeholder="{{entrega.estado_pedido}} " class="select-inline" [(ngModel)]="estadoSeleccionado" (ionChange)="cambiarEstadoDelPedido()" [disabled]="entrega.estado_pedido == 'Entregado'">
         <ion-select-option value="En ruta">En Ruta</ion-select-option>
         <ion-select-option value="Entrega parcial">Entregada Parcial</ion-select-option>
-      </ion-select>
+      </ion-select></strong>
     </ion-card-content>
   </ion-card>
 
   <div class="button-container">
-    <ion-button >Llamar</ion-button>
-    <ion-button >WhatsApp</ion-button>
-    <ion-button >Mapa</ion-button>
+    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'">Llamar</ion-button>
+    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'">WhatsApp</ion-button>
+    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'">Mapa</ion-button>
   </div>
 
-  <div class="button-confirmar" *ngFor="let entrega of entregas">
+  <div class="button-confirmar">
     <ion-button [routerLink]="['/tabs/confirmacion-entrega',entrega.uid]" [disabled]="entrega.estado_pedido !== 'Entrega parcial'">Confirmar Entrega</ion-button>
 </div>
 </ion-content>
