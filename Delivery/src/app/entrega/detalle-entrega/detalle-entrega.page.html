@@ -26,9 +26,9 @@
   </ion-card>
 
   <div class="button-container">
-    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'">Llamar</ion-button>
-    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'">WhatsApp</ion-button>
-    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'">Mapa</ion-button>
+    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'" (click)="llamar()">Llamar</ion-button>
+    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'" >WhatsApp</ion-button>
+    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'" (click)="abrirGoogleMaps()">Mapa</ion-button>
   </div>
 
   <div class="button-confirmar">

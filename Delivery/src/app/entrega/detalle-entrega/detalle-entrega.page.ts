@@ -54,4 +54,21 @@ async cambiarEstadoDelPedido() {
       });
     }
   }
+
+  abrirYoutube(){
+    const video = 'Tw_DCRskCQs'
+    const url = 'https://www.youtube.com/watch?v=' + video
+    window.open(url, '_system')
+  }
+
+  abrirGoogleMaps(){
+    const dirrecion = 'Uno+Poniente'
+    const url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURI(dirrecion)
+    window.open(url, '_system')
+  }
+
+  llamar(){
+    const tele = '962984240'
+    window.open('tel:' + tele, '_system')
+  }
 }
