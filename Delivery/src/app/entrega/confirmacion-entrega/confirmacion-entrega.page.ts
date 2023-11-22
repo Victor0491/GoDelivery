@@ -92,7 +92,7 @@ export class ConfirmacionEntregaPage implements OnInit {
   }
 
   async takeImagen(){
-    const dataUrl = (await this.db.takePicture('Imnagen de entrega')).dataUrl;
+    const dataUrl = (await this.db.takePicture('Imagen de entrega')).dataUrl;
     if (dataUrl){
     this.newcliente.image = dataUrl;
     }

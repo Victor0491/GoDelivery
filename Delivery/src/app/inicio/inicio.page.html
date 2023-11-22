@@ -7,34 +7,75 @@
 </ion-header>
 
 <ion-content>
-
-  <div class="grafico">
-    <div class="image">
-      <ion-img src="assets/img/grafico.png"></ion-img>
-    </div>
+  <div class="grafic">
+    <ion-card>
+      <circle-progress
+        [percent] = "porcentajeRetiros"
+        [radius]="100"
+        [outerStrokeWidth]="16"
+        [innerStrokeWidth]="8"
+        [outerStrokeColor]="'#e66d38'"
+        [innerStrokeColor]="'#fd9163'"
+        [animation]="true"
+        [animationDuration]="300"
+      ></circle-progress>
+    </ion-card>
   </div>
 
-  <div class="card">
-    <div class="card-content">
-      <h3>Retiros pendientes: {{ cantidadPedidosRetirados }}</h3>
-    </div>
+  <div class="retiros">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card class="card">
+            <ion-card-content>
+              <h2>Retiros pendientes: {{cantidadPedidosEnTienda}}</h2>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="card">
+            <ion-card-content>
+              <h2>Retiros realizados: {{cantidadPedidosRetirados}}</h2>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 
-  <div class="card">
-    <div class="card-content">
-      <h3>Retiros Realizados: 0</h3>
-    </div>
+  <div class="grafic">
+    <ion-card>
+      <circle-progress
+        [percent]="porcentajeEntregas"
+        [radius]="100"
+        [outerStrokeWidth]="16"
+        [innerStrokeWidth]="8"
+        [outerStrokeColor]="'#e66d38'"
+        [innerStrokeColor]="'#fd9163'"
+        [animation]="true"
+        [animationDuration]="300"
+      ></circle-progress>
+    </ion-card>
   </div>
-  
-  <div class="card">
-    <div class="card-content">
-      <h3>Entregas pendientes: 0</h3>
-    </div>
+
+  <div class="retiros">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-card class="card">
+            <ion-card-content>
+              <h2>Entregas pendientes: {{cantidadPedidosNoEntregado}}</h2>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="card">
+            <ion-card-content>
+              <h2>Entregas realizadas: {{cantidadPedidosEntregado}}</h2>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
-  
-  <div class="card">
-    <div class="card-content">
-      <h3>Entregas realizadas: 0</h3>
-    </div>
-  </div>  
 </ion-content>
