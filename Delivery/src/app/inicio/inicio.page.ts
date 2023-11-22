@@ -50,49 +50,60 @@ export class InicioPage implements OnInit {
 
    }
 
-  ngOnInit(){
-    this.cargarEntregas();
-    this.obtenerCantidadPedidosRetirados();
-    this.obtenerCantidadPedidosEnTienda();
-    this.obtenerCantidadPedidosEntregado();
-    this.obtenerCantidadPedidosNoEntregado();
+   async ngOnInit() {
+
+
+    await this.cargarEntregas();
+    await this.obtenerCantidadPedidosRetirados();
+    await this.obtenerCantidadPedidosEnTienda();
+    await this.obtenerCantidadPedidosEntregado();
+    await this.obtenerCantidadPedidosNoEntregado();
 
     this.retirosPendientes = this.pendiente(this.cantidadPedidosEnTienda,this.cantidadPedidosRetirados,this.retirosPendientes);
     this.entregasPendientes = this.pendiente(this.cantidadPedidosNoEntregado,this.cantidadPedidosEntregado,this.entregasPendientes);
-    this.porcentajeRetiros = this.porcentaje(this.cantidadPedidosEnTienda, this.cantidadPedidosRetirados, this.porcentajeRetiros);
-    this.porcentajeEntregas = this.porcentaje(this.cantidadPedidosNoEntregado, this.cantidadPedidosEntregado, this.porcentajeEntregas);
+    this.porcentajeRetiros = this.porcentaje(this.cantidadPedidosEnTienda,this.cantidadPedidosRetirados, this.porcentajeRetiros);
+    this.porcentajeEntregas = this.porcentaje(this.cantidadPedidosNoEntregado,this.cantidadPedidosEntregado, this.porcentajeEntregas);
   }
-
-  async obtenerCantidadPedidosRetirados() {
-    const uidUsuario = await this.auth.getUid();
-    const estado = 'Retirado';
   
-    this.db.contarPedidosPorEstado(uidUsuario, estado).subscribe(cantidad => {
-      this.cantidadPedidosRetirados = cantidad;
-      console.log('Cantidad de pedidos Retirados:', this.cantidadPedidosRetirados);
+  obtenerCantidadPedidosRetirados(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.auth.getUid().then(uidUsuario => {
+        const estado = 'Retirado';
+        this.db.contarPedidosPorEstado(uidUsuario, estado).subscribe(cantidad => {
+          this.cantidadPedidosRetirados = cantidad;
+          console.log('Cantidad de pedidos Retirados:', this.cantidadPedidosRetirados);
+          resolve();
+        });
+      });
     });
   }
-
+  
   async obtenerCantidadPedidosEnTienda() {
     const uidUsuario = await this.auth.getUid();
     const estado = 'En tienda';
   
-    this.db.contarPedidosPorEstado(uidUsuario, estado).subscribe(cantidad => {
-      this.cantidadPedidosEnTienda = cantidad;
-      console.log('Cantidad de pedidos en tienda:', this.cantidadPedidosEnTienda);
+    return new Promise<void>((resolve, reject) => {
+      this.db.contarPedidosPorEstado(uidUsuario, estado).subscribe(cantidad => {
+        this.cantidadPedidosEnTienda = cantidad;
+        console.log('Cantidad de pedidos en tienda:', this.cantidadPedidosEnTienda);
+        resolve();
+      });
     });
   }
-
+  
   async obtenerCantidadPedidosEntregado() {
     const uidUsuario = await this.auth.getUid();
     const estado = 'Entregado';
   
-    this.db.contarPedidosPorEstado(uidUsuario, estado).subscribe(cantidad => {
-      this.cantidadPedidosEntregado = cantidad;
-      console.log('Cantidad de pedidos entregado:', this.cantidadPedidosEntregado);
+    return new Promise<void>((resolve, reject) => {
+      this.db.contarPedidosPorEstado(uidUsuario, estado).subscribe(cantidad => {
+        this.cantidadPedidosEntregado = cantidad;
+        console.log('Cantidad de pedidos entregado:', this.cantidadPedidosEntregado);
+        resolve();
+      });
     });
   }
-
+  
   async obtenerCantidadPedidosNoEntregado() {
     const uidUsuario = await this.auth.getUid();
     const estadoEnTienda = 'En tienda';
@@ -101,14 +112,18 @@ export class InicioPage implements OnInit {
     const cantidadEnTienda$ = this.db.contarPedidosPorEstado(uidUsuario, estadoEnTienda);
     const cantidadRetirados$ = this.db.contarPedidosPorEstado(uidUsuario, estadoRetirado);
   
-    cantidadEnTienda$.subscribe(cantidadEnTienda => {
-      this.cantidadPedidosEnTienda = cantidadEnTienda;
-      this.calcularCantidadNoEntregado();
-    });
+    return new Promise<void>((resolve, reject) => {
+      cantidadEnTienda$.subscribe(cantidadEnTienda => {
+        this.cantidadPedidosEnTienda = cantidadEnTienda;
+        this.calcularCantidadNoEntregado();
+        resolve();
+      });
   
-    cantidadRetirados$.subscribe(cantidadRetirados => {
-      this.cantidadPedidosRetirados = cantidadRetirados;
-      this.calcularCantidadNoEntregado();
+      cantidadRetirados$.subscribe(cantidadRetirados => {
+        this.cantidadPedidosRetirados = cantidadRetirados;
+        this.calcularCantidadNoEntregado();
+        resolve();
+      });
     });
   }
   
@@ -118,29 +133,29 @@ export class InicioPage implements OnInit {
       console.log('Cantidad de pedidos No Entregados:', this.cantidadPedidosNoEntregado);
     }
   }
-
-  async cargarEntregas(){
+  
+  async cargarEntregas() {
     const uid = await this.auth.getUid();
     console.log(uid);
-    const e = ['Entregado','Retirado','En ruta','Entrega parcial','En tienda']
-    this.db.getPedidos(uid,e).subscribe(data => {
-      console.log(data)
+    const e = ['Entregado', 'Retirado', 'En ruta', 'Entrega parcial', 'En tienda'];
+    this.db.getPedidos(uid, e).subscribe(data => {
+      console.log(data);
       this.entregas = data;
     });
   }
-
-  porcentaje(totales: number, camino: number, porcentaje: number ): number{
-    
-    porcentaje = (camino * 100 ) / totales;
-
+  
+  porcentaje(totales: number, camino: number, porcentaje: number): number {
+    porcentaje = (camino * 10) / totales;
+    console.log('camino:', camino)
+    console.log('totales', totales);
+    console.log('porcentaje', porcentaje);
     return porcentaje;
   }
-
-  pendiente(total: number, realizado: number, pendiente: number):number{
-
-    pendiente = total - realizado;
-    console.log('Total:',total);
-    console.log('Realizado',realizado);
+  
+  pendiente(total: number, realizado: number,pendiente: number): number {
+     pendiente = total - realizado;
+    console.log('Total:', total);
+    console.log('Realizado', realizado);
     return pendiente;
   }
 }
