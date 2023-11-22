@@ -5,11 +5,11 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content>
-    <ion-card *ngFor="let retiro of retiro">
+  <ion-content *ngFor="let retiro of retiro">
+    <ion-card >
       <ion-card-header>
         <ion-card-title></ion-card-title>
-        <ion-card-subtitle>Dirección retiro: {{retiro.direccion_tienda}}</ion-card-subtitle>
+        <ion-card-subtitle><strong>Dirección retiro: {{retiro.direccion_tienda}},{{retiro.comuna_tienda}}</strong></ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         Cliente: {{retiro.nombre_tienda}}<br>
@@ -22,4 +22,8 @@
         <ion-button fill="clear"  class="realizar-retiro-button" (click)="mostrarMensaje()" (click)="cambiarEstadoDelPedido()">Realizar Retiro</ion-button>
       </ion-footer>
     </ion-card>
+
+    <div class="button-container">
+      <ion-button (click)="abrirGoogleMaps(retiro.direccion_tienda,retiro.comuna_tienda)">Mapa</ion-button>
+    </div>
   </ion-content>

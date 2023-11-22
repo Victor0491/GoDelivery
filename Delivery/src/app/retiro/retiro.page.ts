@@ -39,6 +39,7 @@ export class RetiroPage {
 ngOnInit() {
 
   this.cargarRetiros();
+
 }
 
     async cargarRetiros(){

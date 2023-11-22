@@ -67,6 +67,17 @@ export class ObjetoService {
       });
     }
 
+
+    async contarPedidosPorEstado(uid: string, estado: string): Promise<number> {
+      const rutaColeccion = `/user/${uid}/pedido`;
+  
+      const querySnapshot = await this.db.collection(rutaColeccion)
+        .ref.where('estado_pedido', '==', estado)
+        .get();
+  
+      return querySnapshot.size; // Retorna el tamaño del querySnapshot, que es la cantidad de documentos obtenidos
+    }
+
   }
   
 

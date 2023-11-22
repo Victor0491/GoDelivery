@@ -12,7 +12,7 @@ export interface Pedido {
     nombre_tienda : string;
     numero_bultos : string;
     direccion_tienda : string;
-   
+    cliente : [];
  }
 
  export interface Confirmacion_entrega {

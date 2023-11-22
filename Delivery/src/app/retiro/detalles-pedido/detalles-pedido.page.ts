@@ -70,7 +70,14 @@ async cargarRetiros() {
     this.db.actualizarEstadoPedido(uid, pedidoId, nuevoEstado);
   }
 }
+  abrirGoogleMaps(dir:string, com : string){
+    const dirrecion = dir +','+ com
+    const url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURI(dirrecion)
+    console.log(dirrecion)
+    window.open(url, '_system')
+    }
 
+    
 }
 
  

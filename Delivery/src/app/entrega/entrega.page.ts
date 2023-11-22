@@ -28,7 +28,6 @@ export class EntregaPage implements OnInit {
     Key : '' 
   };
 
-
   uid = '';
 
   constructor(private navCtrl: NavController,private route: ActivatedRoute, public auth : AuthFirebaseService, private db : ObjetoService) { }
@@ -46,5 +45,4 @@ export class EntregaPage implements OnInit {
         this.entregas = data;
       });
     }
-
 }

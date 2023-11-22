@@ -55,20 +55,13 @@ async cambiarEstadoDelPedido() {
     }
   }
 
-  abrirYoutube(){
-    const video = 'Tw_DCRskCQs'
-    const url = 'https://www.youtube.com/watch?v=' + video
-    window.open(url, '_system')
-  }
-
-  abrirGoogleMaps(){
-    const dirrecion = 'Uno+Poniente'
+  abrirGoogleMaps(dir:string, com : string){
+    const dirrecion = dir +','+ com
     const url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURI(dirrecion)
     window.open(url, '_system')
   }
 
-  llamar(){
-    const tele = '962984240'
+  llamar(tele: string){
     window.open('tel:' + tele, '_system')
   }
 }

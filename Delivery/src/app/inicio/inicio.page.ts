@@ -18,11 +18,15 @@ export class InicioPage implements OnInit {
     email : ''
   };
 
+  entregas: any = [];
+
   userData = {
     Key : '' 
   };
 
   uid = '';
+
+  cantidadPedidosRetirados: number = 0;
 
   constructor(public auth : AuthFirebaseService,private db : ObjetoService) {
 
@@ -30,8 +34,25 @@ export class InicioPage implements OnInit {
    }
 
   ngOnInit(){
-
+    this.cargarEntregas();
+    this.obtenerCantidadPedidosRetirados();
   }
 
+  async obtenerCantidadPedidosRetirados() {
+    const uidUsuario = await this.auth.getUid();
+    console.log(uidUsuario);
+    const estado = 'En tienda';
+    this.cantidadPedidosRetirados = await this.db.contarPedidosPorEstado(uidUsuario, estado);
+    console.log('Cantidad de pedidos Retirados:', this.cantidadPedidosRetirados);
+  }
 
+  async cargarEntregas(){
+    const uid = await this.auth.getUid();
+    console.log(uid);
+    const e = ['Entregado','Retirado','En ruta','Entrega parcial','En tienda']
+    this.db.getPedidos(uid,e).subscribe(data => {
+      console.log(data)
+      this.entregas = data;
+    });
+  }
 }
