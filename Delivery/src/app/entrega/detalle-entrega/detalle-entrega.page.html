@@ -29,7 +29,7 @@
 
   <div class="button-container">
     <ion-button [disabled]="entrega.estado_pedido == 'Entregado'" (click)="llamar(entrega.cliente.telefono_cliente)">Llamar</ion-button>
-    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'" >WhatsApp</ion-button>
+    <ion-button [disabled]="entrega.estado_pedido == 'Entregado'" (click)="enviarWhatsapp(entrega.cliente.telefono_cliente)">WhatsApp</ion-button>
     <ion-button [disabled]="entrega.estado_pedido == 'Entregado'" (click)="abrirGoogleMaps(entrega.cliente.direccion_cliente,entrega.cliente.comuna_cliente)">Mapa</ion-button>
   </div>
 

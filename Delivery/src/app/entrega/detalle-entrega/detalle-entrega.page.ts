@@ -64,4 +64,13 @@ async cambiarEstadoDelPedido() {
   llamar(tele: string){
     window.open('tel:' + tele, '_system')
   }
+
+  enviarWhatsapp(tele:string) {
+    var telefono = tele;
+    if(tele.length == 11) telefono = "+"+tele;
+    else if(tele.length == 9) telefono = "+56"+tele;
+    else if(tele.length == 8)  telefono = "+569"+tele;
+    
+    window.open('whatsapp://send?phone='+tele, '_system');
+  }
 }
